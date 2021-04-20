@@ -16,6 +16,8 @@
   ],
   "rules": {
     "no-console":"off",
+    "no-unused-vars": "warn",
+    "import/prefer-default-export": "off",
     "import/extensions": [
       "error",
       "always",
