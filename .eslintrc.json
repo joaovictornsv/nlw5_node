@@ -15,6 +15,7 @@
     "@typescript-eslint"
   ],
   "rules": {
+    "camelcase":"off",
     "no-console":"off",
     "no-unused-vars": "warn",
     "import/prefer-default-export": "off",

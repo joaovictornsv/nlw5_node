@@ -1,15 +1,12 @@
 import 'reflect-metadata';
 import express from 'express';
+import routes from './routes';
 import './database';
 
 const app = express();
 
-app.get('/', (req, res) => {
-  res.json({ message: 'Olá NLW' });
-});
+app.use(express.json());
 
-app.post('/', (req, res) => {
-  res.json({ message: 'Usuário cadastrado' });
-});
+app.use(routes);
 
 export { app };
