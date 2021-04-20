@@ -48,7 +48,7 @@
     "paths": {
       "@config/*": ["./src/config/*"],
       "@controllers/*": ["./src/controllers/*"],
-      "@models/*": ["./src/models/*"],
+      "@entities/*": ["./src/entities/*"],
       "@repositories/*": ["./src/repositories/*"],
       "@views/*": ["./src/views/*"],
       "@routers/*": ["./src/routers/*"],
