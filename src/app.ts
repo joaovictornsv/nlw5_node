@@ -2,9 +2,10 @@ import 'reflect-metadata';
 import 'express-async-errors';
 import express from 'express';
 import routes from './routes';
-import './database';
+import createConnection from './database';
 import MiddlewareException from './middlewares/MiddlewareException';
 
+createConnection();
 const app = express();
 
 app.use(express.json());
