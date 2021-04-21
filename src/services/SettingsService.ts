@@ -1,4 +1,3 @@
-import { Setting } from '@entities/Setting';
 import { SettingsRepository } from '@repositories/SettingsRepository';
 import { getCustomRepository } from 'typeorm';
 
@@ -8,7 +7,7 @@ interface ISettingsCreate {
 }
 
 class SettingsService {
-  async create({ chat, username }: ISettingsCreate): Promise<Setting> {
+  async create({ chat, username }: ISettingsCreate) {
     if (!chat || !username) {
       throw new Error('Invalid Request');
     }
