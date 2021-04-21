@@ -3,7 +3,7 @@ class HttpException {
 
   message: string;
 
-  constructor(message: string, statusCode: number) {
+  constructor(message: string, statusCode: number = 400) {
     this.statusCode = statusCode;
     this.message = message;
   }
