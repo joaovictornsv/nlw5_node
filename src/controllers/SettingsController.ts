@@ -1,13 +1,19 @@
-import { CreateSettingService } from '@services/CreateSettingService';
+import { SettingsService } from '@services/SettingsService';
 import { Request, Response } from 'express';
 
 class SettingsController {
   async create(request: Request, response: Response): Promise<Response> {
-    const createSettingService = new CreateSettingService();
+    const { chat, username } = request.body;
 
-    const settings = await createSettingService.execute(request.body);
+    const createSettingService = new SettingsService();
 
-    return response.status(201).json(settings);
+    try {
+      const settings = await createSettingService.create({ chat, username });
+
+      return response.status(201).json(settings);
+    } catch (err) {
+      return response.status(400).json({ error: err.message });
+    }
   }
 }
 
