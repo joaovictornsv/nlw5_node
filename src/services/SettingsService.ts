@@ -16,13 +16,9 @@ class SettingsService {
   }
 
   async create({ chat, username }: ISettingsCreate) {
-    if (!chat || !username) {
-      throw new HttpException('Invalid Request');
-    }
-
     const userAlreadyExists = await this.settingsRepository.findOne({ username });
 
-    if (!userAlreadyExists) {
+    if (userAlreadyExists) {
       throw new HttpException('User already exists');
     }
 
