@@ -1,5 +1,6 @@
 import { Setting } from '@entities/Setting';
 import { SettingsRepository } from '@repositories/SettingsRepository';
+import { getCustomRepository } from 'typeorm';
 
 interface ISettingsCreate {
   chat: boolean;
@@ -12,7 +13,7 @@ class SettingsService {
       throw new Error('Invalid Request');
     }
 
-    const settingsRepository = new SettingsRepository();
+    const settingsRepository = getCustomRepository(SettingsRepository);
 
     const userAlreadyExists = await settingsRepository.findOne({ username });
 

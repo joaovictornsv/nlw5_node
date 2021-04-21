@@ -5,10 +5,10 @@ class SettingsController {
   async create(request: Request, response: Response): Promise<Response> {
     const { chat, username } = request.body;
 
-    const createSettingService = new SettingsService();
+    const SettingService = new SettingsService();
 
     try {
-      const settings = await createSettingService.create({ chat, username });
+      const settings = await SettingService.create({ chat, username });
 
       return response.status(201).json(settings);
     } catch (err) {
