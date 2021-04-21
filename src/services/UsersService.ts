@@ -16,7 +16,7 @@ class UsersService {
       return userAlreadyExists;
     }
 
-    const user = await this.userRepository.create({ email });
+    const user = this.userRepository.create({ email });
 
     await this.userRepository.save(user);
 
