@@ -65,6 +65,10 @@ document.querySelector('#start_chat').addEventListener('click', (event) => {
 
     document.getElementById('messages').innerHTML += rendered;
   });
+
+  socket.on('admin_support_on', (socket_id) => {
+    socket_admin_id = socket_id
+  })
 });
 
 document

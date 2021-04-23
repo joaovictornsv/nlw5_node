@@ -59,13 +59,14 @@ io.on('connect', (socket) => {
   socket.on('client_send_to_admin', async (params) => {
     const { text, socket_admin_id } = params;
 
+    console.log('client.ts', socket_admin_id);
     const socket_id = socket.id;
 
-    const { user } = await connectionsService.findBySocketId(socket_id);
+    const { user, user_id } = await connectionsService.findBySocketId(socket_id);
 
     const message = await messagesService.create({
       text,
-      user_id: user.id,
+      user_id,
     });
 
     io.to(socket_admin_id).emit('admin_receive_message', {

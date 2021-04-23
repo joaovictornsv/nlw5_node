@@ -44,5 +44,9 @@ io.on('connect', async (socket) => {
     const AllConnectionsWithoutAdmin = await connectionsService.findAllWithoutAdmin();
 
     io.emit('admin_list_all_users', AllConnectionsWithoutAdmin);
+
+    const { socket_id } = await connectionsService.findByUserId(user_id);
+
+    io.to(socket_id).emit('admin_support_on', socket.id);
   });
 });

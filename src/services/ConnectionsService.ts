@@ -44,7 +44,10 @@ class ConnectionsService {
   }
 
   async findBySocketId(socket_id:string) {
-    const connection = this.connectionsRepository.findOne({ socket_id });
+    const connection = this.connectionsRepository.findOne({
+      where: { socket_id },
+      relations: ['user'],
+    });
 
     return connection;
   }
