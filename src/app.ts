@@ -19,6 +19,7 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 app.get('/pages/client', (req, res) => res.render('html/client.html'));
+app.get('/pages/admin', (req, res) => res.render('html/admin.html'));
 
 const http = createServer(app);
 const io = new Server(http);

@@ -47,6 +47,31 @@ io.on('connect', (socket) => {
 
     await messagesService.create({ text, user_id });
 
-    console.log('Connection created');
+    const allMessages = await messagesService.listByUser(user_id);
+
+    socket.emit('client_list_all_messages', allMessages);
+
+    const AllUsersWithoutAdmin = await connectionsService.findAllWithoutAdmin();
+
+    io.emit('admin_list_all_users', AllUsersWithoutAdmin);
+  });
+
+  socket.on('client_send_to_admin', async (params) => {
+    const { text, socket_admin_id } = params;
+
+    const socket_id = socket.id;
+
+    const { user } = await connectionsService.findBySocketId(socket_id);
+
+    const message = await messagesService.create({
+      text,
+      user_id: user.id,
+    });
+
+    io.to(socket_admin_id).emit('admin_receive_message', {
+      message,
+      socket_id,
+      user,
+    });
   });
 });
