@@ -1,9 +1,8 @@
 import { getCustomRepository } from 'typeorm';
 import { mocked } from 'ts-jest/utils';
 import { UserController } from '../../src/controllers/UserController';
-import UserRepositoryMock from '../../__mocks__/repositories/UserRepository.mock';
-import RequestMock from '../../__mocks__/express/Request.mock';
-import ResponseMock from '../../__mocks__/express/Response.mock';
+import { RepositoryMock as UserRepositoryMock } from '../../__mocks__/repositories/Repository.mock';
+import { RequestMock, ResponseMock } from '../../__mocks__/express/RequestResponse.mock';
 
 const mockUser = {
   id: 'mock-id',
@@ -12,58 +11,43 @@ const mockUser = {
 };
 
 jest.mock('typeorm', () => ({ getCustomRepository: jest.fn() }));
-const getCustomRepositoryMocked = mocked(getCustomRepository);
+
+// Constants Mocks
+
+UserRepositoryMock.create = jest.fn().mockResolvedValueOnce(mockUser);
+
+RequestMock.body = {
+  email: 'mock@email.com',
+};
+
+//---
 
 describe('UsersService', () => {
-  afterAll(() => jest.clearAllMocks());
-  it('should be able create an new user', async () => {
-    RequestMock.body = {
-      email: 'mock@email.com',
-    };
+  let userController: UserController;
 
-    ResponseMock.json = jest.fn().mockImplementationOnce(() => mockUser);
+  beforeEach(() => {
+    mocked(getCustomRepository).mockReturnValueOnce(UserRepositoryMock);
+    userController = new UserController(UserRepositoryMock);
+  });
 
+  afterEach(() => jest.clearAllMocks());
+
+  it('should call response.status() with status code 201', async () => {
     const sendStatusCodeSpy = jest.spyOn(ResponseMock, 'status');
 
-    getCustomRepositoryMocked.mockReturnValueOnce(UserRepositoryMock);
     UserRepositoryMock.findOne = jest.fn().mockResolvedValueOnce(null);
-    UserRepositoryMock.create = jest.fn().mockResolvedValueOnce(mockUser);
-    const userController = new UserController(UserRepositoryMock);
 
-    const user = await userController.create(RequestMock, ResponseMock);
-
-    expect(user).toHaveProperty('id');
-    expect(user).toHaveProperty('email');
-    expect(user).toHaveProperty('created_at');
-
-    expect(getCustomRepository).toBeCalledTimes(1);
-    expect(getCustomRepository).toBeCalledWith(UserRepositoryMock);
+    await userController.create(RequestMock, ResponseMock);
 
     expect(sendStatusCodeSpy).toBeCalledTimes(1);
     expect(sendStatusCodeSpy).toBeCalledWith(201);
   });
-  it('should be able create an user that already exists', async () => {
-    RequestMock.body = {
-      email: 'mock@email.com',
-    };
-
-    ResponseMock.json = jest.fn().mockImplementationOnce((u) => u);
-
+  it('should call response.json() with mockUser', async () => {
     const sendJSONSpy = jest.spyOn(ResponseMock, 'json');
 
-    getCustomRepositoryMocked.mockReturnValueOnce(UserRepositoryMock);
     UserRepositoryMock.findOne = jest.fn().mockResolvedValueOnce(mockUser);
-    UserRepositoryMock.create = jest.fn().mockResolvedValueOnce(mockUser);
-    const userController = new UserController(UserRepositoryMock);
 
-    const user = await userController.create(RequestMock, ResponseMock);
-
-    expect(user).toHaveProperty('id');
-    expect(user).toHaveProperty('email');
-    expect(user).toHaveProperty('created_at');
-
-    expect(getCustomRepository).toBeCalledTimes(1);
-    expect(getCustomRepository).toBeCalledWith(UserRepositoryMock);
+    await userController.create(RequestMock, ResponseMock);
 
     expect(sendJSONSpy).toBeCalledTimes(1);
     expect(sendJSONSpy).toBeCalledWith(mockUser);
