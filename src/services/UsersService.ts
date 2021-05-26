@@ -1,11 +1,12 @@
-import { User } from '@entities/User';
-import { UserRepository } from '@repositories/UserRepository';
-import { getCustomRepository, Repository } from 'typeorm';
+import { getCustomRepository } from 'typeorm';
+import { IUser } from 'src/interfaces/entities/IUser';
+import { IUserRepository } from '../interfaces/repositories/IUserRepository';
+import { IRepository } from '../interfaces/repositories/IRepository';
 
 class UsersService {
-  private userRepository: Repository<User>;
+  private userRepository: IRepository<IUser>;
 
-  constructor(repository: typeof UserRepository) {
+  constructor(repository: IUserRepository) {
     this.userRepository = getCustomRepository(repository);
   }
 
