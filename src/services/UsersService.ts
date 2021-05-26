@@ -5,8 +5,8 @@ import { getCustomRepository, Repository } from 'typeorm';
 class UsersService {
   private userRepository: Repository<User>;
 
-  constructor() {
-    this.userRepository = getCustomRepository(UserRepository);
+  constructor(repository: typeof UserRepository) {
+    this.userRepository = getCustomRepository(repository);
   }
 
   async create(email: string) {
