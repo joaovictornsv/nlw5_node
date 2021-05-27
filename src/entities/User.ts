@@ -6,10 +6,10 @@ import { v4 as uuid } from 'uuid';
 
 @Entity('users')
 class User {
-  @PrimaryColumn()
+  @PrimaryColumn('uuid')
   id: string;
 
-  @Column()
+  @Column('varchar')
   email: string;
 
   @CreateDateColumn()

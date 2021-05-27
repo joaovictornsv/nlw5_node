@@ -6,13 +6,13 @@ import { v4 as uuid } from 'uuid';
 
 @Entity('settings')
 class Setting {
-  @PrimaryColumn()
+  @PrimaryColumn('uuid')
   id: string;
 
-  @Column()
+  @Column('varchar')
   username: string;
 
-  @Column()
+  @Column('boolean')
   chat: boolean;
 
   @UpdateDateColumn()

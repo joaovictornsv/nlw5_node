@@ -6,20 +6,20 @@ import { User } from './User';
 
 @Entity('connections')
 class Connection {
-  @PrimaryColumn()
+  @PrimaryColumn('uuid')
   id: string;
 
-  @Column()
+  @Column('uuid')
   admin_id: string;
 
-  @Column()
+  @Column('uuid')
   user_id: string;
 
   @JoinColumn({ name: 'user_id' })
   @ManyToOne(() => User)
   user: User;
 
-  @Column()
+  @Column('uuid')
   socket_id: string;
 
   @CreateDateColumn()

@@ -6,20 +6,20 @@ import { User } from './User';
 
 @Entity('messages')
 class Message {
-  @PrimaryColumn()
+  @PrimaryColumn('uuid')
   id: string;
 
-  @Column()
+  @Column('varchar')
   admin_id: string;
 
-  @Column()
+  @Column('varchar')
   user_id: string;
 
   @JoinColumn({ name: 'user_id' })
   @ManyToOne(() => User)
   user: User;
 
-  @Column()
+  @Column('varchar')
   text: string;
 
   @CreateDateColumn()
