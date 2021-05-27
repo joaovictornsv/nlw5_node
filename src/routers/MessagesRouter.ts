@@ -1,6 +1,6 @@
 import { MessagesController } from '@controllers/MessagesController';
 import { Router } from 'express';
-import messageValidator from 'src/validators/messageValidator';
+import messageValidator from '../validators/messageValidator';
 
 const routes = Router();
 

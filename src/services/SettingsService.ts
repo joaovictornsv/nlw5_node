@@ -1,7 +1,7 @@
 import { Setting } from '@entities/Setting';
 import { SettingsRepository } from '@repositories/SettingsRepository';
-import { HttpException } from 'src/middlewares/HttpException';
 import { getCustomRepository, Repository } from 'typeorm';
+import { HttpException } from '../middlewares/HttpException';
 
 interface ISettingsCreate {
   chat: boolean;

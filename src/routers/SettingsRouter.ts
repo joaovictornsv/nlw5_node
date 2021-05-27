@@ -1,6 +1,6 @@
 import { SettingsController } from '@controllers/SettingsController';
 import { Router } from 'express';
-import settingsValidator from 'src/validators/settingsValidator';
+import settingsValidator from '../validators/settingsValidator';
 
 const routes = Router();
 
