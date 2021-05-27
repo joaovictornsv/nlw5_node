@@ -1,8 +1,8 @@
 import { getCustomRepository } from 'typeorm';
 import { mocked } from 'ts-jest/utils';
-import { UserController } from '../../src/controllers/UserController';
-import { RepositoryMock as UserRepositoryMock } from '../../__mocks__/repositories/Repository.mock';
-import { RequestMock, ResponseMock } from '../../__mocks__/express/RequestResponse.mock';
+import { UserController } from '../../../src/controllers/UserController';
+import { RepositoryMock as UserRepositoryMock } from '../../../__mocks__/repositories/Repository.mock';
+import { RequestMock, ResponseMock } from '../../../__mocks__/express/RequestResponse.mock';
 
 const mockUser = {
   id: 'mock-id',

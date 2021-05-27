@@ -1,7 +1,7 @@
 import { getCustomRepository } from 'typeorm';
 import { mocked } from 'ts-jest/utils';
-import { UsersService } from '../../src/services/UsersService';
-import { RepositoryMock as UserRepositoryMock } from '../../__mocks__/repositories/Repository.mock';
+import { UsersService } from '../../../src/services/UsersService';
+import { RepositoryMock as UserRepositoryMock } from '../../../__mocks__/repositories/Repository.mock';
 
 const mockUser = {
   id: 'mock-id',
