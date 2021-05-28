@@ -14,7 +14,7 @@ describe('Settings Controller', () => {
     await connection.dropDatabase();
     await connection.close();
   });
-  it('should create a new user', async () => {
+  it('should create a new admin', async () => {
     const response = await request(http)
       .post('/settings')
       .send({ chat: true, username: 'user' });
@@ -23,7 +23,7 @@ describe('Settings Controller', () => {
     expect(response.body).toHaveProperty('id');
   });
 
-  it('should not create a user if email already exists', async () => {
+  it('should not create a admin if username already exists', async () => {
     const response = await request(http)
       .post('/settings')
       .send({ chat: true, username: 'user' });
@@ -33,17 +33,16 @@ describe('Settings Controller', () => {
     expect(response.body.message).toEqual('User already exists');
   });
 
-  it('should get a user', async () => {
+  it('should get a settings by username', async () => {
     const response = await request(http)
-      .get('/settings/user')
-      .send({ chat: true, username: 'user' });
+      .get('/settings/user');
 
     expect(response.status).toEqual(200);
     expect(response.body).toHaveProperty('id');
     expect(response.body.username).toEqual('user');
   });
 
-  it('should update a user', async () => {
+  it('should update a admin settings', async () => {
     const response = await request(http)
       .put('/settings/user')
       .send({ chat: true });
