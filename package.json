@@ -8,6 +8,16 @@
     "typeorm": "tsnd node_modules/typeorm/cli.js",
     "test": "NODE_ENV=test jest --runInBand --no-cache"
   },
+  "hooks": {
+    "pre-commit": "lint-staged",
+    "pre-push": "jest -- --coverage"
+  },
+  "lint-staged": {
+    "src/**/*.ts": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
   "dependencies": {
     "celebrate": "^14.0.0",
     "ejs": "^3.1.6",
