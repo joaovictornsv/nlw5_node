@@ -30,4 +30,24 @@ describe('Messages Controller', () => {
     expect(response.body).toHaveProperty('id');
     expect(response.body).toHaveProperty('user_id');
   });
+  it('should get messages by user id', async () => {
+    const { body } = await request(http)
+      .post('/users')
+      .send({ email: 'user2@example.com' });
+
+    const { id } = body;
+
+    await request(http)
+      .post('/messages')
+      .send({ user_id: id, text: 'Mensagem 1' });
+    await request(http)
+      .post('/messages')
+      .send({ user_id: id, text: 'Mensagem 2' });
+
+    const response = await request(http)
+      .get(`/messages/${id}`);
+
+    expect(response.statusCode).toEqual(200);
+    expect(response.body).toHaveLength(2);
+  });
 });
