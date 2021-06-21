@@ -9,6 +9,12 @@ class UserController {
     this.userRepository = repository;
   }
 
+  /**
+   * Method that create a new user
+   * @param request Request
+   * @param response Response
+   * @returns Promise<Response>
+   */
   create = async (request: Request, response: Response) => {
     const usersService = new UsersService(this.userRepository);
     const { email } = request.body;

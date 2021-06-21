@@ -1,0 +1,12 @@
+{
+  "entryPoints": ["./src"],
+  "exclude": [
+    "**/*+(index|.spec|.e2e|.d).ts",
+    "**/node_modules/**",
+    "./src/database/**",
+    "./src/repositories/**",
+    "./src/websockets/**",
+    "./src/*.ts"
+  ],
+  "out": "docs/project"
+}
